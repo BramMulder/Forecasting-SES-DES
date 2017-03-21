@@ -1,0 +1,8 @@
+c:\users\bram\documents\visual studio 2015\Projects\Forecasting\Forecasting\bin\Debug\Forecasting.exe.config
+c:\users\bram\documents\visual studio 2015\Projects\Forecasting\Forecasting\bin\Debug\Forecasting.exe
+c:\users\bram\documents\visual studio 2015\Projects\Forecasting\Forecasting\bin\Debug\Forecasting.pdb
+c:\users\bram\documents\visual studio 2015\Projects\Forecasting\Forecasting\obj\Debug\Forecasting.csprojResolveAssemblyReference.cache
+c:\users\bram\documents\visual studio 2015\Projects\Forecasting\Forecasting\obj\Debug\Forecasting.Properties.Resources.resources
+c:\users\bram\documents\visual studio 2015\Projects\Forecasting\Forecasting\obj\Debug\Forecasting.csproj.GenerateResource.Cache
+c:\users\bram\documents\visual studio 2015\Projects\Forecasting\Forecasting\obj\Debug\Forecasting.exe
+c:\users\bram\documents\visual studio 2015\Projects\Forecasting\Forecasting\obj\Debug\Forecasting.pdb
