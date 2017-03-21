@@ -15,12 +15,14 @@ namespace Forecasting
         static void Main()
         {
             Algorithm.ReadCsv();
-            Algorithm.ExecuteAlgorithm();
+            var respone = Algorithm.ExecuteAlgorithm();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Form1(respone.Item1, respone.Item2));
 
         }
+
+
     }
 }

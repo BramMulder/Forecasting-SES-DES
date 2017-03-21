@@ -44,14 +44,15 @@ namespace Forecasting
             return true;
         }
 
-        public static void ExecuteAlgorithm()
+        public static Tuple<double[], double[]> ExecuteAlgorithm()
         {
             double bestError = -1;
             double bestAlpha = -1;
+            double[] ses = new double[0];
 
             for (double i = 0.1; i <= 1; i = i + 0.1)
             {
-                var ses = ComputeSes(i , _demand, AdditionalMethods.CalculateAlpha);
+                ses = ComputeSes(i , _demand, AdditionalMethods.CalculateAlpha);
                 var squaredError = CalculateSquaredError(ses, _demand);
 
                 //Update best error (and the alpha) if a better one is found
@@ -61,7 +62,10 @@ namespace Forecasting
                     bestAlpha = Math.Round(i, 3);
                 }
             }
-            
+
+            ses = ComputeSes(bestAlpha, _demand, AdditionalMethods.CalculateAlpha);
+
+            return new Tuple<double[], double[]>(_demand, ses);
         }
 
         private static double[] ComputeSes(double alpha, double[] x, Func<double[], double> init)

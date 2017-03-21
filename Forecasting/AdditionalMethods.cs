@@ -10,7 +10,7 @@
                 sum = sum + x[i];
             }
 
-            return sum;
+            return sum/12;
         }
     }
 }
