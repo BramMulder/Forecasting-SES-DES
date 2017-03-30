@@ -10,11 +10,13 @@ namespace Forecasting
         private double[] _demand;
         private double[] _ses;
         private double[] _des;
-        public Form1(double[] demand, double[] ses, double[] des)
+        private double[] _desSmoothed;
+        public Form1(double[] demand, double[] ses, double[] des, double[] desSmooted)
         {
             _demand = demand;
             _ses = ses;
             _des = des;
+            _desSmoothed = desSmooted;
             InitializeComponent();
         }
 
@@ -46,11 +48,11 @@ namespace Forecasting
                 chart2.Series["Forecasted"].Points.AddXY(k, _des[k]);
             }
 
-            //TODO proper forecasting
-            //for (int m = 0; m < 10; m++)
-            //{
-            //    chart2.Series["Forecasted"].Points.AddXY(_demand.Length + m, _des[_demand.Length - 1]);
-            //}
+            for (int m = 0; m < 10; m++)
+            {
+                chart2.Series["Forecasted"].Points.AddXY(_demand.Length + m, 
+                    _desSmoothed[_desSmoothed.Length-1] + m * (_desSmoothed[_desSmoothed.Length - 1] - _des[_demand.Length - 1]));
+            }
 
             chart2.Series["Original Data"].ChartType = SeriesChartType.FastLine;
             chart2.Series["Original Data"].Color = Color.Red;

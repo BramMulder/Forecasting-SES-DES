@@ -18,7 +18,7 @@ namespace Forecasting
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1(sesResponse.Item1, sesResponse.Item2, desResponse.Item2));
+            Application.Run(new Form1(sesResponse.Item1, sesResponse.Item2, desResponse.Item1, desResponse.Item2));
         }
 
         private static double[] ReadCsv()

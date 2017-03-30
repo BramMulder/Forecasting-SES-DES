@@ -9,13 +9,17 @@ namespace Forecasting
             double bestError = -1;
             double bestAlpha = -1;
             double bestBeta = -1;
-            double[] des = new double[0];
+            double[] des;
+            Tuple<double[], double[]> response;
 
+            //Alpha value
             for (double i = 0.1; i <= 1; i = i + 0.1)
             {
+                //Beta value
                 for (double k = 0.1; k <= 1; k = k + 0.1)
                 {
-                    des = ComputeDes(i, k, demand, AdditionalMethods.CalculateAlpha);
+                    response = ComputeDes(i, k, demand, AdditionalMethods.CalculateAlpha);
+                    des = response.Item1;
                     var squaredError = CalculateSquaredError(des, demand);
 
                     //Update best error (and the alpha) if a better one is found
@@ -27,13 +31,13 @@ namespace Forecasting
                     }
                 }
             }
-
-            des = ComputeDes(bestAlpha, bestBeta, demand, AdditionalMethods.CalculateAlpha);
-
-            return new Tuple<double[], double[]>(demand, des);
+            response = ComputeDes(bestAlpha, bestBeta, demand, AdditionalMethods.CalculateAlpha);
+            
+            //Tuple (forecast, smoothedDes)
+            return new Tuple<double[], double[]>(response.Item1, response.Item2);
         }
 
-        private static double[] ComputeDes(double alpha, double beta, double[] x, Func<double[], double> init)
+        private static Tuple<double[], double[]> ComputeDes(double alpha, double beta, double[] x, Func<double[], double> init)
         {
             double[] s = new double[x.Length];
             double[] b = new double[x.Length];
@@ -51,7 +55,7 @@ namespace Forecasting
 
                 forecasts[t+1] = s[t] + b[t];
             }
-            return forecasts;
+            return new Tuple<double[], double[]>(forecasts, s);
         }
 
 
