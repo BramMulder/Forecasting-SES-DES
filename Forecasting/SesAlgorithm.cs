@@ -54,7 +54,7 @@ namespace Forecasting
                 squaredDistancesSum += Math.Pow(demand[j] - ses[j], 2);
             }
 
-            var squaredDistancesAverage = squaredDistancesSum/ses.Length;
+            var squaredDistancesAverage = squaredDistancesSum/ (ses.Length -1);
             var squaredError = Math.Sqrt(squaredDistancesAverage);
 
             return squaredError;

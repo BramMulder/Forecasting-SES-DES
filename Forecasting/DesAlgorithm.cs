@@ -33,7 +33,7 @@ namespace Forecasting
             }
             response = ComputeDes(bestAlpha, bestBeta, demand, AdditionalMethods.CalculateAlpha);
             
-            //Tuple (forecast, smoothedDes)
+            //Tuple -> (forecast, smoothedDes)
             return new Tuple<double[], double[]>(response.Item1, response.Item2);
         }
 
@@ -72,7 +72,8 @@ namespace Forecasting
                 squaredDistancesSum += Math.Pow(demand[j] - des[j], 2);
             }
 
-            var squaredDistancesAverage = squaredDistancesSum / des.Length;
+            //Subtract two, because you start counting from index 3
+            var squaredDistancesAverage = squaredDistancesSum / (des.Length - 2);
             var squaredError = Math.Sqrt(squaredDistancesAverage);
 
             return squaredError;

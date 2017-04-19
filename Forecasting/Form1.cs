@@ -34,10 +34,10 @@ namespace Forecasting
             }
 
             chart1.Series["Original Data"].ChartType = SeriesChartType.FastLine;
-            chart1.Series["Original Data"].Color = Color.Blue;
+            chart1.Series["Original Data"].Color = Color.Red;
 
             chart1.Series["Smoothed"].ChartType = SeriesChartType.FastLine;
-            chart1.Series["Smoothed"].Color = Color.Red;
+            chart1.Series["Smoothed"].Color = Color.Blue;
         }
 
         private void chart2_Click(object sender, EventArgs e)
