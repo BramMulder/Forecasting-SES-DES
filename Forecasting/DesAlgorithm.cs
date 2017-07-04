@@ -13,10 +13,10 @@ namespace Forecasting
             Tuple<double[], double[]> response;
 
             //Alpha value
-            for (double i = 0.1; i <= 1; i = i + 0.1)
+            for (double i = 0.01; i <= 1; i = i + 0.01)
             {
                 //Beta value
-                for (double k = 0.1; k <= 1; k = k + 0.1)
+                for (double k = 0.01; k <= 1; k = k + 0.01)
                 {
                     response = ComputeDes(i, k, demand, AdditionalMethods.CalculateAlpha);
                     des = response.Item1;
@@ -43,17 +43,19 @@ namespace Forecasting
             double[] b = new double[x.Length];
             double[] forecasts = new double[x.Length+1];
             s[0] = init(x);
-            s[1] = alpha * x[1] + (1 - alpha) * (s[1 - 1] + (x[0] - x[0]));
+            //s[1] = alpha * x[1] + (1 - alpha) * (s[1 - 1] + (x[0] - x[0]));
+            s[1] = x[1];
+            b[1] = x[1] - x[0];
+            forecasts[2] = s[1] + b[1];
 
             for (int t = 2; t < x.Length; t++)
             {
-                var prevTrend = x[t - 1] - x[t - 2];
-                var smoothed = alpha * x[t] + (1 - alpha) * (s[t - 1] + (int)prevTrend);
+                var smoothed = alpha * x[t] + (1 - alpha) * (s[t - 1] + b[t - 1]);
                 s[t] = smoothed;
-                var estimate = beta*(s[t] - s[t - 1]) + (1 - beta)*prevTrend;
+                var estimate = beta * (s[t] - s[t - 1]) + (1 - beta) * b[t - 1];
                 b[t] = estimate;
 
-                forecasts[t+1] = s[t] + b[t];
+                forecasts[t + 1] = s[t] + b[t];
             }
             return new Tuple<double[], double[]>(forecasts, s);
         }

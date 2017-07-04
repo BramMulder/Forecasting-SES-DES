@@ -8,9 +8,9 @@ namespace Forecasting
         {
             double bestError = -1;
             double bestAlpha = -1;
-            double[] ses = new double[0];
+            double[] ses;
 
-            for (double i = 0.1; i <= 1; i = i + 0.1)
+            for (double i = 0.01; i <= 1; i = i + 0.01)
             {
                 ses = ComputeSes(i , demand, AdditionalMethods.CalculateAlpha);
                 var squaredError = CalculateSquaredError(ses, demand);
@@ -46,16 +46,15 @@ namespace Forecasting
             if (ses.Length != demand.Length)
                 return -1;
 
-            var squaredDistancesSum = 0.0;
+            var sumSquareError = 0.0;
 
             //Calculate the Sum of Squared Distances - Skip the first value in the arrays
             for (int j = 1; j < ses.Length; j++)
             {
-                squaredDistancesSum += Math.Pow(demand[j] - ses[j], 2);
+                sumSquareError += Math.Pow(demand[j] - ses[j], 2);
             }
 
-            var squaredDistancesAverage = squaredDistancesSum/ (ses.Length -1);
-            var squaredError = Math.Sqrt(squaredDistancesAverage);
+            var squaredError = Math.Sqrt(sumSquareError / (ses.Length - 1));
 
             return squaredError;
         }
